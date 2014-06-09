@@ -1,0 +1,3 @@
+export("ad.test", "pAD", "qAD")
+export("cvm.test", "pCvM", "qCvM")
+useDynLib(goftest, "ADprobN", "ADprobApproxInf", "ADprobExactInf", "ADtestR")

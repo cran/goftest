@@ -1,0 +1,122 @@
+head	1.3;
+access;
+symbols;
+locks
+	adrian:1.3; strict;
+comment	@# @;
+
+
+1.3
+date	2014.06.09.08.37.47;	author adrian;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2014.06.09.04.42.32;	author adrian;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2014.06.08.11.23.23;	author adrian;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@minor
+@
+text
+@\name{cvm.test}
+\alias{cvm.test}
+\title{
+  Cramer-Von Mises Test of Goodness-of-Fit
+}
+\description{
+  Performs the
+  \ifelse{latex}{\out{Cram\'er}}{Cramer}-von Mises test
+  of goodness-of-fit to a specified continuous univariate
+  probability distribution.
+}
+\usage{
+cvm.test(x, null = "punif", ..., nullname)
+}
+\arguments{
+  \item{x}{
+    Numeric vector of data values.
+  }
+  \item{null}{
+    A function, or a character string giving the name of a function,
+    to compute the cumulative distribution function for the
+    null distribution.
+  }
+  \item{\dots}{
+    Additional arguments for the cumulative distribution function.
+  }
+  \item{nullname}{
+    Optional character string describing the null distribution.
+    The default is \code{"uniform distribution"}.
+  }
+}
+\details{
+  This command performs the
+  \ifelse{latex}{\out{Cram\'er}}{Cramer}-von Mises test
+  of goodness-of-fit to the distribution specified by the argument
+  \code{null}. It is assumed that the values in \code{x} are
+  independent and identically distributed random values, with some
+  cumulative distribution function \eqn{F}.
+  The null hypothesis is that \eqn{F} is the function
+  specified by the argument \code{null}, while the alternative
+  hypothesis is that \eqn{F} is some other function.
+}
+\value{
+  An object of class \code{"htest"} representing the result of
+  the hypothesis test.
+}
+\references{
+  \ifelse{latex}{\out{Cs\"org\H{o}}}{Csorgo}, S. and Faraway, J.J. (1996)
+  The exact and asymptotic distributions of
+  \ifelse{latex}{\out{Cram\'er}}{Cramer}-von Mises statistics.
+  \emph{Journal of the Royal Statistical Society, Series B}
+  \bold{58}, 221--234.
+}
+\author{
+  Adrian Baddeley.
+}
+\seealso{
+  \code{\link{pCvM}} for the null distribution of the test statistic.
+}
+\examples{
+x <- rnorm(10, mean=2, sd=1)
+cvm.test(x, "pnorm", mean=2, sd=1)
+}
+\keyword{htest}
+
+@
+
+
+1.2
+log
+@name change
+@
+text
+@d61 2
+a62 2
+x <- runif(10)
+cvm.test(x)
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d58 1
+a58 1
+  \code{\link{pcramer}} for the null distribution of the test statistic.
+@
