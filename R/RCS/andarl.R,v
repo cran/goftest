@@ -1,10 +1,20 @@
-head	1.4;
+head	1.6;
 access;
 symbols;
 locks
-	adrian:1.4; strict;
+	adrian:1.6; strict;
 comment	@# @;
 
+
+1.6
+date	2014.06.24.02.12.20;	author adrian;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2014.06.24.01.54.16;	author adrian;	state Exp;
+branches;
+next	1.4;
 
 1.4
 date	2014.06.09.05.07.09;	author adrian;	state Exp;
@@ -31,9 +41,9 @@ desc
 @@
 
 
-1.4
+1.6
 log
-@tweak
+@polished output
 @
 text
 @##
@@ -41,16 +51,18 @@ text
 ##
 ##  Anderson-Darling test and null distribution
 ##
-## $Revision: 1.3 $ $Date: 2014/06/09 05:02:30 $
+## $Revision: 1.5 $ $Date: 2014/06/24 01:54:16 $
 ##
 
 ad.test <- function(x, null="punif", ..., nullname) {
   xname <- deparse(substitute(x))
   nulltext <- deparse(substitute(null))
   if(is.character(null)) nulltext <- null
-  if(missing(nullname))
-    nullname <- if(identical(null, "punif")) "uniform distribution" else
+  if(missing(nullname) || is.null(nullname)) {
+    reco <- recogniseCdf(nulltext)
+    nullname <- if(!is.null(reco)) reco else 
                 paste("distribution", sQuote(nulltext))
+  }
   stopifnot(is.numeric(x))
   x <- as.vector(x)
   n <- length(x)
@@ -72,18 +84,30 @@ ad.test <- function(x, null="punif", ..., nullname) {
   STATISTIC <- z$adstat
   names(STATISTIC) <- "An"
   PVAL <- z$pvalue
-  METHOD <- paste("Anderson-Darling test of", nullname)
-  ALTERN <- paste("Not the", nullname)
+  METHOD <- c("Anderson-Darling test of goodness-of-fit",
+              paste("Null hypothesis:", nullname))
+  extras <- list(...)
+  parnames <- intersect(names(extras), names(formals(F0)))
+  if(length(parnames) > 0) {
+    pars <- extras[parnames]
+    pard <- character(0)
+    for(i in seq_along(parnames))
+      pard[i] <- paste(parnames[i], "=", paste(pars[[i]], collapse=" "))
+    pard <- paste("with",
+                  ngettext(length(pard), "parameter", "parameters"),
+                  "  ", 
+                  paste(pard, collapse=", "))
+    METHOD <- c(METHOD, pard)
+  }
   out <- list(statistic = STATISTIC,
                p.value = PVAL,
-               alternative = ALTERN,
                method = METHOD,
                data.name = xname)
   class(out) <- "htest"
   return(out)
 }
 
-pAD <- function(q, n=Inf, lower.tail=TRUE) {
+pAD <- function(q, n=Inf, lower.tail=TRUE, fast=TRUE) {
   q <- as.numeric(q)
   p <- rep(NA_real_, length(q))
   if(any(ones <- is.infinite(q) & (q == Inf)))
@@ -101,14 +125,24 @@ pAD <- function(q, n=Inf, lower.tail=TRUE) {
               prob    = as.double(numeric(nok))
               )
       p[ok] <- z$prob
+    } else if(fast) {
+      ## fast version adinf()
+      z <- .C("ADprobApproxInf",
+              a    = as.double(q[ok]),
+              na   = as.integer(nok),
+              prob = as.double(numeric(nok))
+              )
+      p[ok] <- z$prob
     } else {
-      z <- .C("ADprobInf",
+      ## slow, accurate version ADinf()
+      z <- .C("ADprobExactInf",
               a    = as.double(q[ok]),
               na   = as.integer(nok),
               prob = as.double(numeric(nok))
               )
       p[ok] <- z$prob
     }
+      
   }
   if(!lower.tail)
     p <- 1 - p
@@ -117,18 +151,18 @@ pAD <- function(q, n=Inf, lower.tail=TRUE) {
 
 qAD <- local({
 
-  f <- function(x, N, P) {
-    pAD(x, N) - P
+  f <- function(x, N, P, Fast) {
+    pAD(x, N, fast=Fast) - P
   }
     
-  qAD <- function(p, n=Inf, lower.tail=TRUE) {
+  qAD <- function(p, n=Inf, lower.tail=TRUE, fast=TRUE) {
     ## quantiles of null distribution of Anderson-Darling test statistic
     stopifnot(all(p >= 0))
     stopifnot(all(p <= 1))
     if(!lower.tail) p <- 1-p
     ans <- rep(NA_real_, length(p))
     for(i in which(p >= 0 & p < 1)) 
-      ans[i] <- uniroot(f, c(0, 1), N=n, P=p[i], extendInt="up")$root
+      ans[i] <- uniroot(f, c(0, 1), N=n, P=p[i], Fast=fast, extendInt="up")$root
     return(ans)
   }
 
@@ -138,6 +172,57 @@ qAD <- local({
 
   
 
+@
+
+
+1.5
+log
+@recognises standard distributions
+@
+text
+@d6 1
+a6 1
+## $Revision: 1.4 $ $Date: 2014/06/09 05:07:09 $
+d39 15
+a53 2
+  METHOD <- paste("Anderson-Darling test of", nullname)
+  ALTERN <- paste("Not the", nullname)
+a55 1
+               alternative = ALTERN,
+@
+
+
+1.4
+log
+@tweak
+@
+text
+@d6 1
+a6 1
+## $Revision: 1.3 $ $Date: 2014/06/09 05:02:30 $
+d13 3
+a15 2
+  if(missing(nullname))
+    nullname <- if(identical(null, "punif")) "uniform distribution" else
+d17 1
+d50 1
+a50 1
+pAD <- function(q, n=Inf, lower.tail=TRUE) {
+d68 8
+d77 2
+a78 1
+      z <- .C("ADprobInf",
+d85 1
+d94 2
+a95 2
+  f <- function(x, N, P) {
+    pAD(x, N) - P
+d98 1
+a98 1
+  qAD <- function(p, n=Inf, lower.tail=TRUE) {
+d105 1
+a105 1
+      ans[i] <- uniroot(f, c(0, 1), N=n, P=p[i], extendInt="up")$root
 @
 
 

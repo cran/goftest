@@ -3,16 +3,18 @@
 ##
 ##  Anderson-Darling test and null distribution
 ##
-## $Revision: 1.4 $ $Date: 2014/06/09 05:07:09 $
+## $Revision: 1.6 $ $Date: 2014/06/24 02:12:20 $
 ##
 
 ad.test <- function(x, null="punif", ..., nullname) {
   xname <- deparse(substitute(x))
   nulltext <- deparse(substitute(null))
   if(is.character(null)) nulltext <- null
-  if(missing(nullname))
-    nullname <- if(identical(null, "punif")) "uniform distribution" else
+  if(missing(nullname) || is.null(nullname)) {
+    reco <- recogniseCdf(nulltext)
+    nullname <- if(!is.null(reco)) reco else 
                 paste("distribution", sQuote(nulltext))
+  }
   stopifnot(is.numeric(x))
   x <- as.vector(x)
   n <- length(x)
@@ -34,11 +36,23 @@ ad.test <- function(x, null="punif", ..., nullname) {
   STATISTIC <- z$adstat
   names(STATISTIC) <- "An"
   PVAL <- z$pvalue
-  METHOD <- paste("Anderson-Darling test of", nullname)
-  ALTERN <- paste("Not the", nullname)
+  METHOD <- c("Anderson-Darling test of goodness-of-fit",
+              paste("Null hypothesis:", nullname))
+  extras <- list(...)
+  parnames <- intersect(names(extras), names(formals(F0)))
+  if(length(parnames) > 0) {
+    pars <- extras[parnames]
+    pard <- character(0)
+    for(i in seq_along(parnames))
+      pard[i] <- paste(parnames[i], "=", paste(pars[[i]], collapse=" "))
+    pard <- paste("with",
+                  ngettext(length(pard), "parameter", "parameters"),
+                  "  ", 
+                  paste(pard, collapse=", "))
+    METHOD <- c(METHOD, pard)
+  }
   out <- list(statistic = STATISTIC,
                p.value = PVAL,
-               alternative = ALTERN,
                method = METHOD,
                data.name = xname)
   class(out) <- "htest"

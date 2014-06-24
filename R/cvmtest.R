@@ -3,16 +3,18 @@
 ##
 ## Cramer-von Mises test
 ##
-## $Revision: 1.2 $ $Date: 2014/06/08 11:32:51 $
+## $Revision: 1.4 $ $Date: 2014/06/24 02:13:27 $
 ##
 
 cvm.test <- function(x, null="punif", ..., nullname) {
   xname <- deparse(substitute(x))
   nulltext <- deparse(substitute(null))
   if(is.character(null)) nulltext <- null
-  if(missing(nullname))
-    nullname <- if(identical(null, "punif")) "uniform distribution" else
+  if(missing(nullname) || is.null(nullname)) {
+    reco <- recogniseCdf(nulltext)
+    nullname <- if(!is.null(reco)) reco else 
                 paste("distribution", sQuote(nulltext))
+  }
   stopifnot(is.numeric(x))
   x <- as.vector(x)
   n <- length(x)
@@ -27,11 +29,23 @@ cvm.test <- function(x, null="punif", ..., nullname) {
   omega2 <- 1/(12 * n) + sum((U - (2*k - 1)/(2*n))^2)
   PVAL <- pCvM(omega2, n=n, lower.tail=FALSE)
   names(omega2) <- "omega2"
-  METHOD <- paste("Cramer-von Mises test of", nullname)
-  ALTERN <- paste("Not the", nullname)
+  METHOD <- c("Cramer-von Mises test of goodness-of-fit",
+              paste("Null hypothesis:", nullname))
+  extras <- list(...)
+  parnames <- intersect(names(extras), names(formals(F0)))
+  if(length(parnames) > 0) {
+    pars <- extras[parnames]
+    pard <- character(0)
+    for(i in seq_along(parnames))
+      pard[i] <- paste(parnames[i], "=", paste(pars[[i]], collapse=" "))
+    pard <- paste("with",
+                  ngettext(length(pard), "parameter", "parameters"),
+                  "  ", 
+                  paste(pard, collapse=", "))
+    METHOD <- c(METHOD, pard)
+  }
   out <- list(statistic = omega2,
                p.value = PVAL,
-               alternative = ALTERN,
                method = METHOD,
                data.name = xname)
   class(out) <- "htest"
