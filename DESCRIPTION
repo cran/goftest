@@ -1,13 +1,13 @@
 Package: goftest
 Type: Package
 Title: Classical Goodness-of-Fit Tests for Univariate Distributions
-Version: 1.0-3
-Date: 2014-07-03
+Version: 1.0-4
+Date: 2017-02-02
 Authors@R: c(person("Julian", "Faraway", role = "aut"),
 	     person("George", "Marsaglia", role = "aut"),
 	     person("John",   "Marsaglia", role = "aut"),
 	     person("Adrian", "Baddeley", role = c("aut", "cre"),
-     		     email = "Adrian.Baddeley@uwa.edu.au"))
+     		     email = "Adrian.Baddeley@curtin.edu.au"))
 Depends: R (>= 3.1)
 Imports: stats
 Description: Cramer-Von Mises and Anderson-Darling tests of goodness-of-fit
@@ -15,11 +15,11 @@ Description: Cramer-Von Mises and Anderson-Darling tests of goodness-of-fit
 	     efficient algorithms.
 License: GPL (>= 2)
 NeedsCompilation: yes
-Packaged: 2015-07-03 10:01:03 UTC; adrian
+Packaged: 2017-02-02 00:52:46 UTC; adrian
 Author: Julian Faraway [aut],
   George Marsaglia [aut],
   John Marsaglia [aut],
   Adrian Baddeley [aut, cre]
-Maintainer: Adrian Baddeley <Adrian.Baddeley@uwa.edu.au>
+Maintainer: Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>
 Repository: CRAN
-Date/Publication: 2015-07-03 12:51:04
+Date/Publication: 2017-02-03 13:20:13
