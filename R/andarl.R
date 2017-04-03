@@ -27,11 +27,12 @@ ad.test <- function(x, null="punif", ..., nullname) {
   U <- sort(U)
   k <- seq_len(n)
   ## call Marsaglia C code
-  z <- .C("ADtestR",
+  z <- .C(CgofADtestR,
           x = as.double(U),
           n = as.integer(n),
           adstat = as.double(numeric(1)),
-          pvalue = as.double(numeric(1))
+          pvalue = as.double(numeric(1)),
+	  PACKAGE="goftest"
           )
   STATISTIC <- z$adstat
   names(STATISTIC) <- "An"
@@ -70,28 +71,28 @@ pAD <- function(q, n=Inf, lower.tail=TRUE, fast=TRUE) {
   nok <- sum(ok)
   if(nok > 0) {
     if(is.finite(n)) {
-      z <- .C("ADprobN",
+      z <- .C(CgofADprobN,
               a       = as.double(q[ok]),
               na      = as.integer(nok),
               nsample = as.integer(n),
-              prob    = as.double(numeric(nok))
-              )
+              prob    = as.double(numeric(nok)),
+	      PACKAGE="goftest")
       p[ok] <- z$prob
     } else if(fast) {
       ## fast version adinf()
-      z <- .C("ADprobApproxInf",
+      z <- .C(CgofADprobApproxInf,
               a    = as.double(q[ok]),
               na   = as.integer(nok),
-              prob = as.double(numeric(nok))
-              )
+              prob = as.double(numeric(nok)),
+	      PACKAGE="goftest")
       p[ok] <- z$prob
     } else {
       ## slow, accurate version ADinf()
-      z <- .C("ADprobExactInf",
+      z <- .C(CgofADprobExactInf,
               a    = as.double(q[ok]),
               na   = as.integer(nok),
-              prob = as.double(numeric(nok))
-              )
+              prob = as.double(numeric(nok)),
+	      PACKAGE="goftest")
       p[ok] <- z$prob
     }
       

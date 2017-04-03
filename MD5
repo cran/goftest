@@ -1,12 +1,12 @@
-7a54a6f372675bcef4e9eb701991ccbe *DESCRIPTION
-1f5cc633d4177b56444510f32cba1724 *NAMESPACE
-d3146be4396e0b2db19377e00d110794 *R/RCS/andarl.R,v
-8052568d7f91b67ab5e8794f559b4cab *R/RCS/cramer.R,v
-2c68dc762655bbc1958556cb1d84fa55 *R/RCS/cvmtest.R,v
-56ce831b8afd6f55b7f7180a470226c1 *R/RCS/recog.R,v
-d44f724c9f723de2a1ea8c1f63a558dd *R/andarl.R
+96829f4e7b27aa7d9f4390defb84d6a7 *DESCRIPTION
+15b924eea35078a33ce9a9597f352439 *NAMESPACE
+887a04c0e343377d70f33fa812fcb6a5 *R/andarl.R
 af5331c232f97b2898a79436c9cf68ea *R/cramer.R
 5cce1422f1250e4c202cf2cd22d1182e *R/cvmtest.R
+d3146be4396e0b2db19377e00d110794 *R/oldRCS/andarl.R,v
+8052568d7f91b67ab5e8794f559b4cab *R/oldRCS/cramer.R,v
+2c68dc762655bbc1958556cb1d84fa55 *R/oldRCS/cvmtest.R,v
+56ce831b8afd6f55b7f7180a470226c1 *R/oldRCS/recog.R,v
 c1fe053fbad63706bc531caaa8d4093a *R/recog.R
 a7ad89d57a0f110ccea99d17ebb561c3 *man/RCS/ad.test.Rd,v
 530c67ca8d74604f9c2d096806246e26 *man/RCS/cvm.test.Rd,v
@@ -23,3 +23,4 @@ ca3270c176ce09cd15243bf4df918aa9 *src/ADinf.c
 cd2de573b9344ec28682f59b81a2789c *src/AnDarl.c
 db80933a3060fbea79e3fee3c0e04278 *src/RCS/ADinf.c,v
 2e56696004e170d1f939ba1442e34c1d *src/RCS/AnDarl.c,v
+a197e1a03ae0ab8761473c5ad9bc9508 *src/init.c
