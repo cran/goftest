@@ -1,10 +1,15 @@
-head	1.1;
+head	1.2;
 access;
 symbols;
 locks
-	adrian:1.1; strict;
+	adrian:1.2; strict;
 comment	@ * @;
 
+
+1.2
+date	2018.03.29.08.07.08;	author adrian;	state Exp;
+branches;
+next	1.1;
 
 1.1
 date	2014.06.09.07.53.21;	author adrian;	state Exp;
@@ -16,15 +21,15 @@ desc
 @@
 
 
-1.1
+1.2
 log
-@Initial revision
+@Summary: bug fix
 @
 text
 @/* 
    AnDarl.c
 
-   $Revision$  $Date$
+   $Revision: 1.1 $  $Date: 2014/06/09 07:53:21 $
 
    Original C code by G. and J. Marsaglia
 
@@ -169,7 +174,7 @@ void ADprobN(double *a, int *na, int *nsample, double *prob) {
     prob[i] = AD(N, a[i]);
 }
   
-void ADprobInf(double *a, int *na, double *prob) {
+void ADprobApproxInf(double *a, int *na, double *prob) {
   int i, m;
   m = *na;
   for(i = 0; i < m; i++) 
@@ -177,7 +182,8 @@ void ADprobInf(double *a, int *na, double *prob) {
 }
   
 void ADtestR(double *x, int *n, double *adstat, double *pvalue) {
-  double N, a, p;
+  double a, p;
+  int N;
   N = *n;
   a = ADstat(N, x);
   p = AD(N, a);
@@ -186,4 +192,21 @@ void ADtestR(double *x, int *n, double *adstat, double *pvalue) {
 }
 
 
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d4 1
+a4 1
+   $Revision$  $Date$
+d149 1
+a149 1
+void ADprobInf(double *a, int *na, double *prob) {
+d157 2
+a158 1
+  double N, a, p;
 @
