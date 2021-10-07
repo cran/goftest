@@ -82,7 +82,7 @@ ad.test(x, null = "punif", ..., estimated=FALSE, nullname)
   Evaluating the Anderson-Darling Distribution.
   \emph{Journal of Statistical Software} \bold{9} (2), 1--5.
   February 2004. 
-  \url{http://www.jstatsoft.org/v09/i02}
+  \doi{10.18637/jss.v009.i02}
 }
 \author{
   Original C code by George Marsaglia and John Marsaglia. 

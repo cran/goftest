@@ -1,4 +1,4 @@
-ec0991eb856955402bbc31a404ee3742 *DESCRIPTION
+29111628fe1b2d270ef5df0c5ff3c6c5 *DESCRIPTION
 15b924eea35078a33ce9a9597f352439 *NAMESPACE
 e45a60eb1d479da9631e0dd3a45d9ec1 *R/RCS/andarl.R,v
 d7a9c3d741437b87b272318a38e01fd7 *R/RCS/cramer.R,v
@@ -13,15 +13,16 @@ d3146be4396e0b2db19377e00d110794 *R/oldRCS/andarl.R,v
 2c68dc762655bbc1958556cb1d84fa55 *R/oldRCS/cvmtest.R,v
 56ce831b8afd6f55b7f7180a470226c1 *R/oldRCS/recog.R,v
 b5dc530d801f347fcc103ba9a9ef2bd6 *R/recog.R
+29b8a1f246a7963b8d8e9cb77543f0c2 *build/partial.rdb
 4ca09aee4f6ec8772a37f287a23a503a *man/RCS/ad.test.Rd,v
 8c8471c1ed64c58a562fa42ffcd35b6b *man/RCS/cvm.test.Rd,v
 62bc401099f8d0a7522fb4d24b5f71a4 *man/RCS/goftest-package.Rd,v
 6e322a80bcf915758cf6b34edfe8c55c *man/RCS/pAD.Rd,v
 d0f7bb029253ac0d213e7f7be7f21690 *man/RCS/pCvM.Rd,v
-b079118b1a7ae7c412c31b4fa88b17b0 *man/ad.test.Rd
+b26573082916c8dc121ae0610198cfcc *man/ad.test.Rd
 c4a9a49bd5eb2b0bc0c0c2d26eed4929 *man/cvm.test.Rd
-e454d5346ded7911cf8d0d041be98201 *man/goftest-package.Rd
-1a4b2504f66e98b034f0665218b2c5bc *man/pAD.Rd
+aeefaa4a55958c09f7f8cc3ad4dc2eae *man/goftest-package.Rd
+d31fca48d10c5dd9e63be3955c14412d *man/pAD.Rd
 b6294a6cc54d82ceb166326a40f07b4c *man/pCvM.Rd
 a4f4486d8a6e4b08d73001ef3134c2a2 *man/recogniseCdf.Rd
 ca3270c176ce09cd15243bf4df918aa9 *src/ADinf.c
